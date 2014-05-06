@@ -110,3 +110,7 @@ Versions
 Used resources
 --------------
 * `Official Documentation <http://docs.getpelican.com/en/latest/getting_started.html>`_
+* http://willdrevo.com/starting-with-pelican.html
+* http://algorithmshop.com/20131212-starting-a-blog.html
+* http://duncanlock.net/blog/2013/05/17/how-i-built-this-website-using-pelican-part-1-setup/
+* http://fjavieralba.com/pelican-a-static-blog-generator-for-pythonistas.html
