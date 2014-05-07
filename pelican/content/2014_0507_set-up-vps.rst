@@ -1,9 +1,293 @@
 Set-up a personal vps
 #####################
 
-:date: 2014-05-05 20:34
-:tags: python, pelican
+:date: 2014-05-07 11:00
+:tags: vps, ubuntu, openssh
 :category: Pelican
 :slug: set-up-a-personal-vps
 :author: Julien Hadley Jack
 
+If you are on Windows then you need `Putty <http://www.chiark.greenend.org.uk/~sgtatham/putty/>`_ to be able to connect
+to the newly created VPS. Fill in the IP address you got from the email.
+
+.. image:: /images/putty_session1.jpg
+    :alt: Saved session in Putty
+
+When you connect you then need to authenticate:
+
+.. code-block:: console
+
+    login as: root
+    root@vps's password:
+
+Update the system:
+
+.. code-block:: console
+
+    root@vps:~# apt-get update && apt-get upgrade && apt-get dist-upgrade
+
+Normally you should login as root. That's why we will create a new user which we will use in the future. We will also
+*sudo* privileges but only do that yourself if that user really needs it:
+
+.. code-block:: console
+
+    root@vps:~# adduser USERNAME
+    Adding user `USERNAME' ...
+    Adding new group `USERNAME' (1000) ...
+    Adding new user `USERNAME' (1000) with group `USERNAME' ...
+    Creating home directory `/home/USERNAME' ...
+    Copying files from `/etc/skel' ...
+    Enter new UNIX password:
+    Retype new UNIX password:
+    passwd: password updated successfully
+    Changing the user information for USERNAME
+    Enter the new value, or press ENTER for the default
+    Full Name []:
+    Room Number []:
+    Work Phone []:
+    Home Phone []:
+    Other []:
+    Is the information correct? [Y/n]
+
+    root@vps:~# s apt-get install sudo
+    Reading package lists... 0%
+    Reading package lists... 100%
+    Reading package lists... Done
+    Building dependency tree... 0%
+    Building dependency tree... 0%
+    Building dependency tree... 50%
+    Building dependency tree... 50%
+    Building dependency tree
+    Reading state information... 0%
+    Reading state information... 50%
+    Reading state information... Done
+    sudo is already the newest version.
+    0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+    root@vps:~# adduser USERNAME sudo
+    Adding user `USERNAME' to group `sudo' ...
+    Adding user USERNAME to group sudo
+    Done.
+
+SSH
+---
+Now login using your new user. We will now make logins more secure. Generate a public and a private SSH key by using
+PuttyGen which comes with Putty. It is most secure if you use it with a passphrase.
+
+.. image:: /images/putty_puttygen.jpg
+    :alt: Generating keys using Puttygen
+
+Save the private key and copy the private key to the clipboard::
+
+    pilosafolivora@vps:~$ sudo apt-get install nano
+    pilosafolivora@vps:~$ mkdir .ssh
+    pilosafolivora@vps:~$ nano .ssh/authorized_keys
+
+Now paste the private key and save the file by pressing \ :code:`CTRL + X` and then :code:`Y`.
+
+Lets change the oppenSSH settings. Open it using \ :code:`nano /etc/ssh/sshd_config`. The original file looked like this
+for me:
+
+.. code-block:: apacheconf
+    :linenos: table
+
+    # Package generated configuration file
+    # See the sshd_config(5) manpage for details
+
+    # What ports, IPs and protocols we listen for
+    Port 22
+    # Use these options to restrict which interfaces/protocols sshd will bind to
+    #ListenAddress ::
+    #ListenAddress 0.0.0.0
+    Protocol 2
+    # HostKeys for protocol version 2
+    HostKey /etc/ssh/ssh_host_rsa_key
+    HostKey /etc/ssh/ssh_host_dsa_key
+    HostKey /etc/ssh/ssh_host_ecdsa_key
+    #Privilege Separation is turned on for security
+    UsePrivilegeSeparation yes
+
+    # Lifetime and size of ephemeral version 1 server key
+    KeyRegenerationInterval 3600
+    ServerKeyBits 768
+
+    # Logging
+    SyslogFacility AUTH
+    LogLevel INFO
+
+    # Authentication:
+    LoginGraceTime 120
+    PermitRootLogin yes
+    StrictModes yes
+
+    RSAAuthentication yes
+    PubkeyAuthentication yes
+    #AuthorizedKeysFile	%h/.ssh/authorized_keys
+
+    # Don't read the user's ~/.rhosts and ~/.shosts files
+    IgnoreRhosts yes
+    # For this to work you will also need host keys in /etc/ssh_known_hosts
+    RhostsRSAAuthentication no
+    # similar for protocol version 2
+    HostbasedAuthentication no
+    # Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+    #IgnoreUserKnownHosts yes
+
+    # To enable empty passwords, change to yes (NOT RECOMMENDED)
+    PermitEmptyPasswords no
+
+    # Change to yes to enable challenge-response passwords (beware issues with
+    # some PAM modules and threads)
+    ChallengeResponseAuthentication no
+
+    # Change to no to disable tunnelled clear text passwords
+    #PasswordAuthentication yes
+
+    # Kerberos options
+    #KerberosAuthentication no
+    #KerberosGetAFSToken no
+    #KerberosOrLocalPasswd yes
+    #KerberosTicketCleanup yes
+
+    # GSSAPI options
+    #GSSAPIAuthentication no
+    #GSSAPICleanupCredentials yes
+
+    X11Forwarding yes
+    X11DisplayOffset 10
+    PrintMotd no
+    PrintLastLog yes
+    TCPKeepAlive yes
+    #UseLogin no
+
+    #MaxStartups 10:30:60
+    #Banner /etc/issue.net
+
+    # Allow client to pass locale environment variables
+    AcceptEnv LANG LC_*
+
+    Subsystem sftp /usr/lib/openssh/sftp-server
+
+    # Set this to 'yes' to enable PAM authentication, account processing,
+    # and session processing. If this is enabled, PAM authentication will
+    # be allowed through the ChallengeResponseAuthentication and
+    # PasswordAuthentication.  Depending on your PAM configuration,
+    # PAM authentication via ChallengeResponseAuthentication may bypass
+    # the setting of "PermitRootLogin without-password".
+    # If you just want the PAM account and session checks to run without
+    # PAM authentication, then enable this but set PasswordAuthentication
+    # and ChallengeResponseAuthentication to 'no'.
+    UsePAM yes
+
+Let's change a few settings.
+
+.. code-block:: apacheconf
+    :linenos: table
+    :hl_lines: 27, 37, 52
+
+    # Package generated configuration file
+    # See the sshd_config(5) manpage for details
+
+    # What ports, IPs and protocols we listen for
+    Port 22
+    # Use these options to restrict which interfaces/protocols sshd will bind to
+    #ListenAddress ::
+    #ListenAddress 0.0.0.0
+    Protocol 2
+    # HostKeys for protocol version 2
+    HostKey /etc/ssh/ssh_host_rsa_key
+    HostKey /etc/ssh/ssh_host_dsa_key
+    HostKey /etc/ssh/ssh_host_ecdsa_key
+    #Privilege Separation is turned on for security
+    UsePrivilegeSeparation yes
+
+    # Lifetime and size of ephemeral version 1 server key
+    KeyRegenerationInterval 3600
+    ServerKeyBits 768
+
+    # Logging
+    SyslogFacility AUTH
+    LogLevel INFO
+
+    # Authentication:
+    LoginGraceTime 120
+    PermitRootLogin no
+    StrictModes yes
+
+    RSAAuthentication yes
+    PubkeyAuthentication yes
+    AuthorizedKeysFile	%h/.ssh/authorized_keys
+
+    # Don't read the user's ~/.rhosts and ~/.shosts files
+    IgnoreRhosts yes
+    # For this to work you will also need host keys in /etc/ssh_known_hosts
+    RhostsRSAAuthentication no
+    # similar for protocol version 2
+    HostbasedAuthentication no
+    # Uncomment if you don't trust ~/.ssh/known_hosts for RhostsRSAAuthentication
+    #IgnoreUserKnownHosts yes
+
+    # To enable empty passwords, change to yes (NOT RECOMMENDED)
+    PermitEmptyPasswords no
+
+    # Change to yes to enable challenge-response passwords (beware issues with
+    # some PAM modules and threads)
+    ChallengeResponseAuthentication no
+
+    # Change to no to disable tunnelled clear text passwords
+    #PasswordAuthentication yes
+    PasswordAuthentication no
+
+    # Kerberos options
+    #KerberosAuthentication no
+    #KerberosGetAFSToken no
+    #KerberosOrLocalPasswd yes
+    #KerberosTicketCleanup yes
+
+    # GSSAPI options
+    #GSSAPIAuthentication no
+    #GSSAPICleanupCredentials yes
+
+    X11Forwarding yes
+    X11DisplayOffset 10
+    PrintMotd no
+    PrintLastLog yes
+    TCPKeepAlive yes
+    #UseLogin no
+
+    #MaxStartups 10:30:60
+    #Banner /etc/issue.net
+
+    # Allow client to pass locale environment variables
+    AcceptEnv LANG LC_*
+
+    Subsystem sftp /usr/lib/openssh/sftp-server
+
+    # Set this to 'yes' to enable PAM authentication, account processing,
+    # and session processing. If this is enabled, PAM authentication will
+    # be allowed through the ChallengeResponseAuthentication and
+    # PasswordAuthentication.  Depending on your PAM configuration,
+    # PAM authentication via ChallengeResponseAuthentication may bypass
+    # the setting of "PermitRootLogin without-password".
+    # If you just want the PAM account and session checks to run without
+    # PAM authentication, then enable this but set PasswordAuthentication
+    # and ChallengeResponseAuthentication to 'no'.
+    UsePAM yes
+
+Other settings
+--------------
+
+Set timezone and locale:
+
+.. code-block:: console
+
+    sudo dpkg-reconfigure tzdata
+    sudo apt-cache search language-pack
+    sudo apt-get install language-pack-en
+    sudo update-locale LANG=en_US.utf8 LC_MESSAGES=en_US.utf8
+
+Set color prompt  \ :code:`nano .bashrc`:
+
+.. code-block:: ini
+
+    force_color_prompt=yes

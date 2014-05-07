@@ -1,0 +1,106 @@
+Using Plex Media Server on a VPS
+################################
+
+:date: 2014-05-07 20:34
+:tags: plex, video, streaming, vps
+:category: Plex
+:slug: plex-on-a-vps
+:author: Julien Hadley Jack
+
+First download the latest version from the `Plex download page <https://plex.tv/downloads>`_ and then install it.
+
+.. code-block:: console
+
+    username@vps:~$ wget http://downloads.plexapp.com/plex-media-server/0.9.9.7.429-f80a8d6/plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb
+    --2014-05-07 19:41:20--  http://downloads.plexapp.com/plex-media-server/0.9.9.7.429-f80a8d6/plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb
+    Resolving downloads.plexapp.com (downloads.plexapp.com)... 194.109.153.211
+    Connecting to downloads.plexapp.com (downloads.plexapp.com)|194.109.153.211|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 69772210 (67M) [application/octet-stream]
+    Saving to: 'plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb'
+
+    100%[======================================>] 69,772,210  68.9MB/s   in 1.0s
+
+    2014-05-07 19:41:21 (68.9 MB/s) - 'plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb' saved [69772210/69772210]
+
+    pilosafolivora@hadleyjack:~$ sudo dpkg -i plexmediaserver_0.9.9.7.429-f80a8d6_amdd64.deb
+    [sudo] password for pilosafolivora:
+    Selecting previously unselected package plexmediaserver.
+    (Reading database ...
+    (Reading database ... 5%
+    (Reading database ... 10%
+    (Reading database ... 15%
+    (Reading database ... 20%
+    (Reading database ... 25%
+    (Reading database ... 30%
+    (Reading database ... 35%
+    (Reading database ... 40%
+    (Reading database ... 45%
+    (Reading database ... 50%
+    (Reading database ... 55%
+    (Reading database ... 60%
+    (Reading database ... 65%
+    (Reading database ... 70%
+    (Reading database ... 75%
+    (Reading database ... 80%
+    (Reading database ... 85%
+    (Reading database ... 90%
+    (Reading database ... 95%
+    (Reading database ... 100%
+    (Reading database ... 24653 files and directories currently installed.)
+    Unpacking plexmediaserver (from plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb) ...
+    dpkg: dependency problems prevent configuration of plexmediaserver:
+     plexmediaserver depends on avahi-daemon; however:
+      Package avahi-daemon is not installed.
+     plexmediaserver depends on avahi-utils; however:
+      Package avahi-utils is not installed.
+
+    dpkg: error processing plexmediaserver (--install):
+     dependency problems - leaving unconfigured
+    Processing triggers for mime-support ...
+    Errors were encountered while processing:
+     plexmediaserver
+
+    pilosafolivora@hadleyjack:~$ sudo apt-get install -f
+    Reading package lists... 0%
+    Reading package lists... 0%
+    Reading package lists... 27%
+    Reading package lists... Done
+    Building dependency tree... 0%
+    Building dependency tree... 0%
+    Building dependency tree... 50%
+    Building dependency tree... 50%
+    Building dependency tree
+    Reading state information... 0%
+    Reading state information... 50%
+    Reading state information... Done
+    Correcting dependencies... Done
+    The following extra packages will be installed:
+      avahi-daemon avahi-utils dbus libapparmor1 libavahi-core7 libdaemon0
+      libnss-mdns libpam-systemd libsystemd-daemon0 libsystemd-login0
+      systemd-services systemd-shim
+    Suggested packages:
+      avahi-autoipd dbus-x11 pm-utils
+    The following NEW packages will be installed:
+      avahi-daemon avahi-utils dbus libapparmor1 libavahi-core7 libdaemon0
+      libnss-mdns libpam-systemd libsystemd-daemon0 libsystemd-login0
+      systemd-services systemd-shim
+    0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.
+    1 not fully installed or removed.
+    Need to get 1067 kB of archives.
+    After this operation, 3439 kB of additional disk space will be used.
+    Do you want to continue [Y/n]?
+    [omitted...]
+
+If you don't want Plex to start automatically on system startup then run this (depends on Linux distro and version)::
+
+    sudo sh -c "echo 'manual' > /etc/init/plexmediaserver.override"
+
+You can stop Plex media server until the next restart::
+
+    sudo service plexmediaserver stop
+
+Resources
+---------
+* http://linuxg.net/how-to-install-plex-media-server-0-9-8-6-on-ubuntu-linux-mint-elementary-os-fedora-and-centos/
+* http://askubuntu.com/questions/19320/how-to-enable-or-disable-services

@@ -18,12 +18,16 @@ Instructions
 First of we need python with pip. There are many different ways to achieve that. You can install it afterwards into a
 Python version < 3.4, install Python 3.4 (which automatically comes with pip), install
 `anaconda <https://store.continuum.io/cshop/anaconda/>`_ or create a virtualenv. Then you have to install pelican (and Markdown if you want to
-use it)::
+use it):
 
-    pip install pelican Markdown
+.. code-block:: console
+
+    username@hostname:~$ pip install pelican Markdown
 
 Now we can start with your website. Create a empty folder where the project should live in. Open a command line with
-that folder as the workding directory. Start the quickstart and answer to your requirements::
+that folder as the workding directory. Start the quickstart and answer to your requirements:
+
+.. code-block:: console
 
     username@hostname:~/pelican$ pelican-quickstart
     Welcome to pelican-quickstart v3.3.0.
@@ -50,7 +54,9 @@ that folder as the workding directory. Start the quickstart and answer to your r
     > Do you want to upload your website using Rackspace Cloud Files? (y/N)
     Done. Your new project is available at /home/username/pelican
 
-Now lets take a look at what has been created::
+Now lets take a look at what has been created:
+
+.. code-block:: console
 
     pilosafolivora@vps:~/pelican$ ls -la
     total 36
@@ -65,7 +71,9 @@ Now lets take a look at what has been created::
     -rw-rw-r-- 1 username group  529 May  6 06:14 publishconf.py
 
 The blog articles are added to the content folder. Let's start with our first post. Create a file called `first-post.rst`
-and then edit the content to this::
+and then edit the content to this:
+
+.. code-block:: restructuredtext
 
     My first post
     #############
