@@ -96,7 +96,7 @@ Visit :code:`http://localhost:8000` to see the website.
 
 Themes
 ------
-
+For this site I'm using the `cait theme by hdr <https://github.com/hdra/pelican-cait>`_.
 
 Plugins
 -------

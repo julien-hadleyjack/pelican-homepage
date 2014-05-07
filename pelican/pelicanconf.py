@@ -3,7 +3,8 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Julien Hadley Jack'
-SITENAME = 'Homepage of Julien Hadley Jack'
+SITENAME = 'Julien Hadley Jack'
+SITESUBTITLE = ''
 SITEURL = ''
 
 TIMEZONE = 'Europe/Paris'

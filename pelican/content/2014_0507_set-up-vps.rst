@@ -1,0 +1,9 @@
+Set-up a personal vps
+#####################
+
+:date: 2014-05-05 20:34
+:tags: python, pelican
+:category: Pelican
+:slug: set-up-a-personal-vps
+:author: Julien Hadley Jack
+
