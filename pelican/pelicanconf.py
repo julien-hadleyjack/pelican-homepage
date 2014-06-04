@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = 'Julien Hadley Jack'
 SITENAME = 'Julien Hadley Jack'
 SITESUBTITLE = ''
-SITEURL = ''
+SITEURL = 'hadleyjack.com'
 
 TIMEZONE = 'Europe/Paris'
 
