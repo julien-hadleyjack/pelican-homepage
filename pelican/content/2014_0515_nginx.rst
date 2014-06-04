@@ -1,0 +1,13 @@
+Running Nginx
+#############
+
+:date: 2014-05-15 19:42
+:tags: vps, ubuntu, server, nginx
+:slug: running-nginx
+:author: Julien Hadley Jack
+:status: draft
+
+* https://www.digitalocean.com/community/articles/how-to-migrate-from-an-apache-web-server-to-nginx-on-an-ubuntu-vps
+* http://paste.ubuntu.com/5620850/
+* http://mail.scipy.org/pipermail/ipython-dev/2013-August/012208.html
+* https://www.digitalocean.com/community/articles/how-to-configure-the-nginx-web-server-on-a-virtual-private-server

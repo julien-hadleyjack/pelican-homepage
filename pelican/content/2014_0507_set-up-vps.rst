@@ -3,7 +3,6 @@ Set-up a personal vps
 
 :date: 2014-05-07 11:00
 :tags: vps, ubuntu, openssh
-:category: Pelican
 :slug: set-up-a-personal-vps
 :author: Julien Hadley Jack
 
@@ -273,6 +272,12 @@ Let's change a few settings.
     # PAM authentication, then enable this but set PasswordAuthentication
     # and ChallengeResponseAuthentication to 'no'.
     UsePAM yes
+
+Apache with SSL
+---------------
+
+* https://www.digitalocean.com/community/articles/how-to-set-up-apache-with-a-free-signed-ssl-certificate-on-a-vps
+* https://www.startssl.com/?app=21
 
 Other settings
 --------------

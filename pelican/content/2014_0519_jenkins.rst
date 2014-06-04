@@ -1,0 +1,13 @@
+Jenkins
+#######
+
+:date: 2014-05-19 11:00
+:tags: vps, ubuntu, server
+:slug: jenkins
+:author: Julien Hadley Jack
+:status: draft
+
+* https://digitalocean.com/community/articles/how-to-install-and-use-jenkins-on-ubuntu-12-04
+* https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+behind+an+NGinX+reverse+proxy
+* https://www.digitalocean.com/community/articles/how-to-install-apache-tomcat-7-on-ubuntu-14-04-via-apt-get
+* http://fourword.fourkitchens.com/article/trigger-jenkins-builds-pushing-github

@@ -1,0 +1,11 @@
+VPN
+###
+
+:date: 2014-05-19 14:34
+:tags: vps, ubuntu, server, minecraft, game
+:slug: running-minecraft
+:author: Julien Hadley Jack
+:status: draft
+
+* https://www.digitalocean.com/community/articles/how-to-setup-your-own-vpn-with-pptp
+* http://www.putdispenserhere.com/pptp-vpn-setup-guide-for-a-debian-openvz-vps/

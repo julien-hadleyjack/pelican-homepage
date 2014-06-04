@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>    Using Plex Media Server on a VPS
+</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+            <link rel="stylesheet" href="/theme/css/normalize.css">
+        <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/theme/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/theme/css/main.css">
+
+    <link rel="stylesheet" href="/theme/css/blog.css">
+    <link rel="stylesheet" href="/theme/css/github.css">
+        <script src="/theme/js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="wrapper">
+<header id="sidebar" class="side-shadow">
+    <hgroup id="site-header">
+        <a id="site-title" href=""><h1><i class="icon-bookmark"></i> Julien Hadley Jack</h1></a>
+        <p id="site-desc"></p>
+    </hgroup>
+    <nav>
+        <ul id="nav-links">
+                <li><a href="/pages/contact-me.html">About me</a></li>
+        </ul>
+    </nav>
+<footer id="site-info">
+    <p>
+        Proudly powered by <a href="http://getpelican.com/" target="pelican">Pelican</a> and <a href="http://python.org/" target="python">Python</a>. Theme by <a href="https://github.com/hdra/pelican-cait" target="github">hndr</a>.
+    </p>
+    <p>
+        Textures by <a href="http://subtlepatterns.com/" target="subtlepatterns">Subtle Pattern</a>. Font Awesome by <a href="http://fortawesome.github.io/Font-Awesome/" target="github">Dave Grandy</a>.
+    </p>
+</footer></header>
+    <div id="post-container">
+        <ol id="post-list">
+            <li>
+                <article class="post-entry">
+                    <header class="entry-header">
+                        <time class="post-time" datetime="2014-05-07T19:00:00" pubdate>
+                            Mi 07 Mai 2014
+                        </time>
+                        <a href="/plex-on-a-vps.html" rel="bookmark"><h1>Using Plex Media Server on a VPS</h1></a>
+                    </header>
+
+                    <section class="post-content">
+                        <p>First download the latest version from the <a class="reference external" href="https://plex.tv/downloads">Plex download page</a> and then install it.</p>
+<div class="highlight"><pre><span class="gp">username@vps:~$</span> wget http://downloads.plexapp.com/plex-media-server/0.9.9.7.429-f80a8d6/plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb
+<span class="go">--2014-05-07 19:41:20--  http://downloads.plexapp.com/plex-media-server/0.9.9.7.429-f80a8d6/plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb</span>
+<span class="go">Resolving downloads.plexapp.com (downloads.plexapp.com)... 194.109.153.211</span>
+<span class="go">Connecting to downloads.plexapp.com (downloads.plexapp.com)|194.109.153.211|:80... connected.</span>
+<span class="go">HTTP request sent, awaiting response... 200 OK</span>
+<span class="go">Length: 69772210 (67M) [application/octet-stream]</span>
+<span class="go">Saving to: &#39;plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb&#39;</span>
+
+<span class="go">100%[======================================&gt;] 69,772,210  68.9MB/s   in 1.0s</span>
+
+<span class="go">2014-05-07 19:41:21 (68.9 MB/s) - &#39;plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb&#39; saved [69772210/69772210]</span>
+
+<span class="gp">username@vps:~$</span> sudo dpkg -i plexmediaserver_0.9.9.7.429-f80a8d6_amdd64.deb
+<span class="go">[sudo] password for username:</span>
+<span class="go">Selecting previously unselected package plexmediaserver.</span>
+<span class="go">(Reading database ...</span>
+<span class="go">(Reading database ... 5%</span>
+<span class="go">(Reading database ... 10%</span>
+<span class="go">(Reading database ... 15%</span>
+<span class="go">(Reading database ... 20%</span>
+<span class="go">(Reading database ... 25%</span>
+<span class="go">(Reading database ... 30%</span>
+<span class="go">(Reading database ... 35%</span>
+<span class="go">(Reading database ... 40%</span>
+<span class="go">(Reading database ... 45%</span>
+<span class="go">(Reading database ... 50%</span>
+<span class="go">(Reading database ... 55%</span>
+<span class="go">(Reading database ... 60%</span>
+<span class="go">(Reading database ... 65%</span>
+<span class="go">(Reading database ... 70%</span>
+<span class="go">(Reading database ... 75%</span>
+<span class="go">(Reading database ... 80%</span>
+<span class="go">(Reading database ... 85%</span>
+<span class="go">(Reading database ... 90%</span>
+<span class="go">(Reading database ... 95%</span>
+<span class="go">(Reading database ... 100%</span>
+<span class="go">(Reading database ... 24653 files and directories currently installed.)</span>
+<span class="go">Unpacking plexmediaserver (from plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb) ...</span>
+<span class="go">dpkg: dependency problems prevent configuration of plexmediaserver:</span>
+<span class="go"> plexmediaserver depends on avahi-daemon; however:</span>
+<span class="go">  Package avahi-daemon is not installed.</span>
+<span class="go"> plexmediaserver depends on avahi-utils; however:</span>
+<span class="go">  Package avahi-utils is not installed.</span>
+
+<span class="go">dpkg: error processing plexmediaserver (--install):</span>
+<span class="go"> dependency problems - leaving unconfigured</span>
+<span class="go">Processing triggers for mime-support ...</span>
+<span class="go">Errors were encountered while processing:</span>
+<span class="go"> plexmediaserver</span>
+
+<span class="gp">username@vps:~$</span> sudo apt-get install -f
+<span class="go">Reading package lists... 0%</span>
+<span class="go">Reading package lists... 0%</span>
+<span class="go">Reading package lists... 27%</span>
+<span class="go">Reading package lists... Done</span>
+<span class="go">Building dependency tree... 0%</span>
+<span class="go">Building dependency tree... 0%</span>
+<span class="go">Building dependency tree... 50%</span>
+<span class="go">Building dependency tree... 50%</span>
+<span class="go">Building dependency tree</span>
+<span class="go">Reading state information... 0%</span>
+<span class="go">Reading state information... 50%</span>
+<span class="go">Reading state information... Done</span>
+<span class="go">Correcting dependencies... Done</span>
+<span class="go">The following extra packages will be installed:</span>
+<span class="go">  avahi-daemon avahi-utils dbus libapparmor1 libavahi-core7 libdaemon0</span>
+<span class="go">  libnss-mdns libpam-systemd libsystemd-daemon0 libsystemd-login0</span>
+<span class="go">  systemd-services systemd-shim</span>
+<span class="go">Suggested packages:</span>
+<span class="go">  avahi-autoipd dbus-x11 pm-utils</span>
+<span class="go">The following NEW packages will be installed:</span>
+<span class="go">  avahi-daemon avahi-utils dbus libapparmor1 libavahi-core7 libdaemon0</span>
+<span class="go">  libnss-mdns libpam-systemd libsystemd-daemon0 libsystemd-login0</span>
+<span class="go">  systemd-services systemd-shim</span>
+<span class="go">0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.</span>
+<span class="go">1 not fully installed or removed.</span>
+<span class="go">Need to get 1067 kB of archives.</span>
+<span class="go">After this operation, 3439 kB of additional disk space will be used.</span>
+<span class="go">Do you want to continue [Y/n]?</span>
+<span class="go">[omitted...]</span>
+</pre></div>
+<p>If you don't want Plex to start automatically on system startup then run this (depends on Linux distro and version):</p>
+<pre class="literal-block">
+sudo sh -c &quot;echo 'manual' &gt; /etc/init/plexmediaserver.override&quot;
+</pre>
+<p>You can stop Plex media server until the next restart:</p>
+<pre class="literal-block">
+sudo service plexmediaserver stop
+</pre>
+<div class="section" id="resources">
+<h2>Resources</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://linuxg.net/how-to-install-plex-media-server-0-9-8-6-on-ubuntu-linux-mint-elementary-os-fedora-and-centos/">http://linuxg.net/how-to-install-plex-media-server-0-9-8-6-on-ubuntu-linux-mint-elementary-os-fedora-and-centos/</a></li>
+<li><a class="reference external" href="http://askubuntu.com/questions/19320/how-to-enable-or-disable-services">http://askubuntu.com/questions/19320/how-to-enable-or-disable-services</a></li>
+</ul>
+</div>
+
+                    </section>
+                    <hr/>
+                    <aside class="post-meta">
+                        <p>Category: <a href="/category/uncategorized.html">Uncategorized</a></p>
+                        <p>Tags: <a href="/tag/plex.html">plex</a>, <a href="/tag/video.html">video</a>, <a href="/tag/streaming.html">streaming</a>, <a href="/tag/vps.html">vps</a>, </p>
+                    </aside>
+                    <hr/>
+                </article>
+            </li>
+        </ol>
+    </div>
+        </div>
+
+        <script src="/theme/js/main.js"></script>
+    </body>
+</html>

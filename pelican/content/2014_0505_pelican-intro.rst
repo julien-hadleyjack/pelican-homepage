@@ -3,7 +3,6 @@ Creating a website using Pelican
 
 :date: 2014-05-05 20:34
 :tags: python, pelican
-:category: Pelican
 :slug: creating-website-using-pelican
 :author: Julien Hadley Jack
 

@@ -1,9 +1,8 @@
 Using Plex Media Server on a VPS
 ################################
 
-:date: 2014-05-07 20:34
+:date: 2014-05-07 19:00
 :tags: plex, video, streaming, vps
-:category: Plex
 :slug: plex-on-a-vps
 :author: Julien Hadley Jack
 
@@ -23,8 +22,8 @@ First download the latest version from the `Plex download page <https://plex.tv/
 
     2014-05-07 19:41:21 (68.9 MB/s) - 'plexmediaserver_0.9.9.7.429-f80a8d6_amd64.deb' saved [69772210/69772210]
 
-    pilosafolivora@hadleyjack:~$ sudo dpkg -i plexmediaserver_0.9.9.7.429-f80a8d6_amdd64.deb
-    [sudo] password for pilosafolivora:
+    username@vps:~$ sudo dpkg -i plexmediaserver_0.9.9.7.429-f80a8d6_amdd64.deb
+    [sudo] password for username:
     Selecting previously unselected package plexmediaserver.
     (Reading database ...
     (Reading database ... 5%
@@ -61,7 +60,7 @@ First download the latest version from the `Plex download page <https://plex.tv/
     Errors were encountered while processing:
      plexmediaserver
 
-    pilosafolivora@hadleyjack:~$ sudo apt-get install -f
+    username@vps:~$ sudo apt-get install -f
     Reading package lists... 0%
     Reading package lists... 0%
     Reading package lists... 27%
